@@ -5,7 +5,8 @@ body, h1, p {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .intro {
@@ -17,10 +18,32 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: #fff;
+    color: #ffffff;
 }
 
-.intro-content {
+.about {
+    background-color: #ffffff05;
+    padding: 100px;
+}
+
+.parallax {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.parallax-background {
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 100%;
+}
+
+.parallax-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.6);
     padding: 20px;
     border-radius: 10px;
@@ -48,11 +71,6 @@ p {
 
 .btn:hover {
     background-color: #0056b3;
-}
-
-.about {
-    background-color: #f0f0f0;
-    padding: 40px;
 }
 
 /* Add more CSS for additional sections and styling as needed */
