@@ -1,0 +1,149 @@
+/*I used ChatGPT to help create the text and box shadowing. The rest is my work.
+I also used https://coolors.co/contrast-checker/eceaea-392e12 to check the contrast between my colors.
+*/
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+body {
+  color: #fff7cb;
+  background-color: #392e12;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+}
+
+#main-doc {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 0 20px;
+  gap: 20px;
+  line-height: 1.3;
+  height: calc(100vh - 100px);
+}
+
+header {
+  font-size: 1.8em;
+  font-weight: bold;
+  text-shadow: 1px 1px 0 #392e12, -1px -1px 0 #392e12, -1px 1px 0 #392e12,
+    1px -1px 0 #392e12, 0 1px 0 #392e12, 0 -1px 0 #392e12, 1px 0 0 #392e12,
+    -1px 0 0 #392e12;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+a {
+  color: lightblue;
+}
+
+p,
+li {
+  margin-top: 10px;
+  font-weight: lighter;
+  color: #eceaea;
+  text-shadow: 1px 1px 0 #392e12, -1px -1px 0 #392e12, -1px 1px 0 #392e12,
+    1px -1px 0 #392e12, 0 1px 0 #392e12, 0 -1px 0 #392e12, 1px 0 0 #392e12,
+    -1px 0 0 #392e12;
+}
+
+.main-section,
+.navbar {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.main-section {
+  background-color: #554b32;
+  width: 100%;
+  border: #312b1d 1px solid;
+  border-radius: 8px;
+  margin: 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+code {
+  display: block;
+  text-align: left;
+  white-space: pre-line;
+  word-wrap: normal;
+  word-break: normal;
+  line-height: 2;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+  background-color: #3b3823;
+  color: #fffbe5;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.navbar {
+  height: 100px;
+  overflow-y: auto;
+  width: 50vw;
+  flex: 0 0 200px;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar header {
+  text-align: center;
+}
+
+.navbar a {
+  color: lightgrey;
+  text-shadow: 1px 1px 0 #392e12, -1px -1px 0 #392e12, -1px 1px 0 #392e12,
+    1px -1px 0 #392e12, 0 1px 0 #392e12, 0 -1px 0 #392e12, 1px 0 0 #392e12,
+    -1px 0 0 #392e12;
+  font-style: normal;
+  text-decoration: none;
+  border-bottom: 1px solid #fff7cb;
+  text-align: left;
+  padding-left: 5px;
+  display: block;
+}
+
+.navbar li:last-child a {
+  border-bottom: none;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: #3b3823;
+}
+
+@media (min-width: 768px) {
+  body {
+    flex-direction: row;
+  }
+
+  #main-doc {
+    position: absolute;
+    top: 0;
+    left: 200px;
+  }
+
+  header {
+    text-align: left !important;
+  }
+
+  .navbar {
+    height: 100vh;
+    width: 200px;
+    position: fixed;
+  }
+
+  .navbar li {
+    font-size: 1.3rem;
+    padding-bottom: 10px;
+  }
+}

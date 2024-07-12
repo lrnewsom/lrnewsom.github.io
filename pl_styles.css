@@ -1,0 +1,521 @@
+:root {
+  --shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --primary-color: #56bfb5;
+  --secondary-color: #18403c;
+  --tertiary-color: #a3d9d3;
+  --quaternary-color: #262223;
+  --quinary-color: #f2f2f2;
+  --dark-linear-gradient: linear-gradient(
+    var(--secondary-color) 0%,
+    var(--secondary-color) 85%,
+    rgb(35, 35, 35) 100%
+  );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: black;
+  color: var(--quinary-color);
+  display: grid;
+  grid-template-columns: 1fr 60vw 1fr; /* Three columns layout */
+  row-gap: 30vh;
+  justify-items: center; /* Center items horizontally */
+  text-align: center; /* Center text */
+}
+
+/* Header Styles */
+#header {
+  background-color: var(--primary-color);
+  width: 100%;
+  grid-column: 1 / -1; /* Span all columns */
+  height: 50px;
+  color: var(--quinary-color);
+  padding: 20px 20px 20px 80px;
+  text-align: center;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  box-shadow: var(--shadow);
+  z-index: 999;
+}
+
+#header-img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 8px 0px 0px 8px;
+  box-shadow: var(--shadow);
+}
+
+/* Navigation Bar Styles */
+#nav-bar {
+  background: var(--dark-linear-gradient);
+  color: var(--quinary-color);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border-radius: 0px 8px 8px 0px;
+}
+
+#nav-bar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#nav-bar li {
+  display: inline;
+}
+
+#nav-bar a {
+  display: inline-block;
+  color: var(--quinary-color);
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  transition: transform 0.2s linear;
+}
+
+#nav-bar a:hover {
+  background-color: hsl(from var(--secondary-color) h s 29);
+  transform: scaleY(90%) scaleX(95%);
+}
+
+/* Hero Section Styles */
+#hero {
+  padding: 260px 350px 0px 350px;
+  color: var(--quinary-color);
+  text-align: center;
+  grid-column: 2; /* Center in the middle column */
+}
+
+#hero h1 {
+  font-size: 1.3rem;
+  font-weight: lighter;
+  padding: 10px;
+  margin: 0;
+}
+
+#hero h2,
+#hero h3 {
+  font-size: 4rem;
+  font-weight: 800;
+  padding: 5px;
+  margin: 0;
+}
+
+#hero h3 {
+  background: linear-gradient(
+    90deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 55%,
+    var(--tertiary-color) 90%,
+    var(--quinary-color) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* For some other browsers like Firefox */
+  color: transparent; /* Fallback for older browsers */
+  animation: wave-gradient 10s ease-in-out 0ms infinite;
+}
+
+#hero p {
+  font-size: 1.1rem;
+  font-weight: lighter;
+  padding: 30px 50px;
+  margin: 0;
+}
+
+#form {
+  margin: 20px 0;
+}
+
+#email {
+  padding: 10px;
+  width: 300px;
+  max-width: 100%;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(lightgray 0%, lightgray 85%, gray 100%);
+  box-shadow: var(--shadow);
+  color: black !important;
+}
+
+#submit {
+  padding: 10px 20px;
+  border: none;
+  background: var(--dark-linear-gradient);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s linear;
+}
+
+#submit:hover {
+  transform: scale(1.3) translate(1rem);
+  background: linear-gradient(
+    90deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 55%,
+    var(--tertiary-color) 90%,
+    var(--primary-color) 100%
+  );
+  background-size: 200% 100%;
+  animation: wave-gradient 10s ease-in-out 0ms infinite;
+}
+
+@keyframes wave-gradient {
+  0% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Section Styles */
+section {
+  padding: 60px 20px;
+  text-align: center;
+  grid-column: 2; /* Center in the middle column */
+}
+
+iframe {
+  width: 100%;
+  height: 350px;
+}
+
+#features {
+  background-color: rgb(28, 28, 28);
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+#features h2 {
+  margin-bottom: 20px;
+}
+
+#features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background-color: white;
+  color: var(--secondary-color);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.feature-description {
+  font-size: 1rem;
+  font-weight: lighter;
+}
+
+#features,
+#how_it_works,
+#pricing {
+  background-color: rgb(28, 28, 28);
+  max-width: 550px;
+  padding-top: 20px;
+  position: relative; /* Added for pseudo-element positioning */
+  border-radius: 8px;
+  width: 100%; /* Adjust width as needed */
+}
+
+#features::before,
+#how_it_works::before,
+#pricing::before {
+  content: "";
+  position: absolute;
+  top: -5px; /* Adjust based on border width */
+  right: -5px;
+  bottom: -5px;
+  left: -5px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 55%,
+    var(--tertiary-color) 90%,
+    var(--quinary-color) 100%
+  );
+  z-index: -1; /* Ensure it appears behind the element */
+  border-radius: inherit; /* Maintain border radius if any */
+  animation: wave-gradient 10s ease-in-out 0ms infinite;
+  background-size: 200% 100%;
+}
+
+#features h2,
+#how_it_works h2,
+#pricing h2 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 48px;
+  font-weight: 800;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#pricing {
+  margin-bottom: 20vh;
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 30px;
+  box-shadow: var(--shadow);
+}
+
+#pricing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Create three equal-width columns */
+  gap: 10px; /* Add some space between columns */
+}
+
+#pricing-list li {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
+  text-align: center; /* Center the text */
+  height: 300px;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: var(--shadow);
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  font-weight: lighter;
+  transition: transform 0.3s ease-in;
+}
+
+#pricing-list li:hover {
+  transform: scale(1.15);
+  z-index: 999;
+  cursor: pointer;
+}
+
+.important {
+  padding: 0;
+  margin: 0;
+  font-size: 1.7em; /* Increase font size */
+  font-weight: 800; /* Make text bold */
+  background: linear-gradient(
+    var(--primary-color) 0%,
+    var(--secondary-color) 85%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* For some other browsers like Firefox */
+  color: transparent; /* Fallback for older browsers */
+  animation: wave-gradient2 5s ease-in-out 0ms infinite;
+  background-size: 100% 200%;
+}
+
+@keyframes wave-gradient2 {
+  0% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 50% 200%;
+  }
+}
+
+/* General Styles for Small Screens */
+@media (max-width: 768px) {
+  body {
+    grid-template-columns: 1fr;
+    row-gap: 10vh;
+    padding: 0 10px;
+  }
+
+  /* Header Styles */
+  #header {
+    padding: 10px;
+    padding-left: 100px;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #header img {
+    max-width: 100px;
+  }
+
+  #nav-bar ul {
+    display: flex;
+    flex-direction: row;
+  }
+
+  #nav-bar li {
+    height: 67px;
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #nav-bar a {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* Hero Section Styles */
+  #hero {
+    padding: 100px 10px 0 10px;
+  }
+
+  #hero h1 {
+    font-size: 1rem;
+  }
+
+  #hero h2,
+  #hero h3 {
+    font-size: 2rem;
+  }
+
+  #hero p {
+    font-size: 0.9rem;
+    padding: 20px 10px;
+  }
+
+  #email {
+    width: 100%;
+  }
+
+  /* Section Styles */
+  section {
+    padding: 40px 10px;
+  }
+
+  #features,
+  #how_it_works,
+  #pricing {
+    padding: 10px;
+    width: 80%;
+  }
+
+  #features h2,
+  #how_it_works h2,
+  #pricing h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Features Section Styles */
+  #features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    padding: 15px;
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+  }
+
+  .feature-title {
+    font-size: 1rem;
+  }
+
+  .feature-description {
+    font-size: 0.9rem;
+  }
+
+  /* Pricing List Styles */
+  #pricing-list {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  #pricing-list li {
+    padding: 15px;
+    font-size: 1.2rem;
+  }
+}
+
+/* Very Small Screens */
+@media (max-width: 480px) {
+  /* Adjust header image size */
+  #header img {
+    max-width: 80px;
+  }
+
+  #header li {
+    height: 40px;
+  }
+
+  /* Reduce padding for sections */
+  section {
+    padding: 20px 5px;
+  }
+
+  /* Adjust font sizes */
+  #hero h1 {
+    font-size: 0.9rem;
+  }
+
+  #hero h2,
+  #hero h3 {
+    font-size: 1.5rem;
+  }
+
+  #hero p {
+    font-size: 0.8rem;
+  }
+
+  /* Further reduce feature card padding and font size */
+  .feature-card {
+    padding: 10px;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+  }
+
+  .feature-title {
+    font-size: 0.9rem;
+  }
+
+  .feature-description {
+    font-size: 0.8rem;
+  }
+
+  /* Further reduce pricing list font size */
+  #pricing-list li {
+    padding: 10px;
+    font-size: 1rem;
+  }
+}
