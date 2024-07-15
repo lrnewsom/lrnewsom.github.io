@@ -1,0 +1,267 @@
+/* Reset some default styles */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  box-sizing: border-box;
+  /* Set font size for easy rem calculations */
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 75em) {
+  html {
+    font-size: 60%;
+  }
+}
+
+@media (max-width: 61.25em) {
+  html {
+    font-size: 58%;
+  }
+}
+
+@media (max-width: 28.75em) {
+  html {
+    font-size: 55%;
+  }
+
+  #about-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8rem; /* 18px */
+  font-weight: 400;
+  line-height: 1.4;
+  color: white;
+}
+
+h1,
+h2 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+h1 {
+  font-size: 6rem;
+}
+
+h2 {
+  font-size: 4.2rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--main-white);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: maroon;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  padding-right: 2rem;
+  gap: 2rem;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-family: "Courier New", Courier, monospace, sans-serif;
+}
+
+.welcome-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  background-image: linear-gradient(62deg, #3a3d40 0%, #181719 100%);
+}
+
+.welcome-text {
+  font-size: 3rem;
+  font-weight: 400;
+  font-style: italic;
+  color: rgb(179, 0, 0);
+}
+
+.welcome-section > .logo {
+  font-size: 5rem;
+  font-weight: lighter;
+  margin-bottom: 2rem;
+}
+
+.welcome-text-adjust {
+  margin-bottom: 10px;
+}
+
+.about {
+  background-color: white;
+  padding: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  color: #333;
+  justify-content: center;
+  align-items: center;
+}
+
+#about-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+#about-text ul,
+#about-text p {
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+#about-text ul {
+  padding-left: 2rem; /* Shift the ul to the right */
+  list-style-type: disc;
+}
+
+#about-img-container {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+#about-img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 700px) {
+  .about {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  #about-text,
+  #about-img-container {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  #about-img {
+    max-width: 200px;
+  }
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+p {
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+#projects {
+  text-align: center;
+  padding: 10rem 2rem;
+  background-color: #0056b3;
+}
+
+#project-header {
+  max-width: 640px;
+  margin: 0 auto 6rem auto;
+  border-bottom: 0.2rem solid white;
+}
+
+@media (max-width: 28.75em) {
+  #project-header {
+    font-size: 4rem;
+  }
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 4rem;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  margin-bottom: 6rem;
+}
+
+@media (max-width: 30.625em) {
+  #projects {
+    padding: 6rem 1rem;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-tile {
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+  display: grid;
+  grid-template-rows: 2fr 0fr;
+  gap: 0;
+}
+
+.project-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  margin: 0; /* Remove margin */
+  padding: 0; /* Remove padding */
+}
+
+.project-title {
+  font-size: 2rem;
+  padding: 2rem 0.5rem;
+  background-color: gray;
+  margin: 0; /* Ensure there's no margin */
+}

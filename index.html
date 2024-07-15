@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,50 +13,99 @@
     <title>Logan Newsom - Personal Website</title>
   </head>
   <body>
-    <div class="parallax intro">
-      <div
-        class="parallax-background"
-        style="
-          background-image: url('https://images.unsplash.com/photo-1636953056323-9c09fdd74fa6?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D');
-        "
-      ></div>
-      <div class="parallax-content">
-        <h1>Welcome to My Personal Website</h1>
-        <p>Discover my world of creativity, innovation, and passion.</p>
-        <p>Logan Newsom</p>
-        <a href="#about" class="btn">Learn More About Me</a>
-        <a href="product_landing.html" class="btn"
-          >Check out my example product landing page</a
-        >
-        <a href="technical_doc.html" class="btn"
-          >Check out my example technical documentation page</a
-        >
-        <a href="tribute.html" class="btn">Check out my example tribute page</a>
+    <nav class="navbar" id="navbar">
+      <a href="#" class="logo">LOGAN NEWSOM</a>
+      <ul class="nav-links">
+        <li><a href="#welcome-section">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li>
+          <a id="profile-link" href="#contact" target="_blank">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    <section class="welcome-section" id="welcome-section">
+      <h1 class="welcome-text-adjust">Welcome to My Personal Website</h1>
+      <p class="welcome-text welome-text-adjust">
+        Discover my world of creativity, innovation, and passion.
+      </p>
+      <p class="logo welcome-text-adjust">Logan Newsom</p>
+    </section>
+
+    <section id="projects">
+      <h2 id="project-header">These are some of the projects I have done</h2>
+      <div class="project-grid">
+        <a href="product_landing.html" class="project-tile">
+          <img class="project-img" src="pl_page.png" />
+          <h3 class="project-title">Example Product Landing Page</h3>
+        </a>
+
+        <a href="technical_doc.html" class="project-tile">
+          <img class="project-img" src="td_page.png" />
+          <h3 class="project-title">Example Technical Documentation Page</h3>
+        </a>
+
+        <a href="tribute.html" class="project-tile">
+          <img class="project-img" src="tribute_page.png" />
+          <h3 class="project-title">Example Tribute Page</h3>
+        </a>
       </div>
-    </div>
+    </section>
 
     <section id="about" class="about">
       <div id="about-text">
         <h2>About Me</h2>
         <p>
-          I am currently a senior at THE Kansas State University who is pursuing
-          a degree in Computer Science and a minor in Physics.
+          I am a recent graduate with a Bachelor's of Science in Computer
+          Science from the Carl R. Ice College of Engineering at Kansas State
+          University and a minor in Physics. I graduated in May of 2024.
         </p>
         <p>
-          I was born in Kansas City, Missouri, but was raised up in Shawnee,
-          Kansas.
+          I was born in Kansas City, Missouri, but was raised in Shawnee,
+          Kansas. I currently reside in the Kansas City area.
         </p>
         <p>
           While attending De Soto High School I discovered my passion for
           computer science; the field that I once thought was only for nerds
-          then became the field I wanted to one day work in.
+          then became the field I wanted to one day work in. My logic-driven
+          brain and creative passion both found a home in the field of Computer
+          Science. I began my coding journey making games on Unity written in C#
+          during my senior year of high school.
+        </p>
+
+        <p>
+          Through college, I further developed my knowledge of C# in the first
+          2.5 years of the Computer Science curriculum at K-State. On the back
+          end of college, I developed a deep understanding and love for Python
+          and Data Science. I have also learned the fundamental concepts of:
+        </p>
+
+        <ul>
+          <li>Database Systems</li>
+          <li>SQL</li>
+          <li>Object-Oriented Design, Implementation, and Testing</li>
+          <li>Software Architecture and Design</li>
+          <li>Data Structures and Algorithms</li>
+          <li>Concurrent Software Systems</li>
+          <li>Computer Architecture and Operations</li>
+        </ul>
+
+        <p>
+          After graduating, I have furthered my education through the pursuit of
+          professional certifications from freeCodeCamp's online courses.
+        </p>
+
+        <p>
+          The most important thing in my life is my faith in Jesus Christ. While
+          everything described above is important to my career, learning about
+          the love God has for His creation has been the foundation of my life
+          for the past few years. June 30th, 2021 is the day that Jesus changed
+          my life forever and I received the gift of eternal life.
         </p>
       </div>
-      <div>
+      <div id="about-img-container">
         <img id="about-img" src="./profile_pic.jpg" alt="Profile Picture" />
       </div>
     </section>
-
-    <!-- Add more sections for your content -->
   </body>
 </html>
