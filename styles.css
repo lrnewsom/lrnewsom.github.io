@@ -151,6 +151,7 @@ a {
   flex: 1;
   min-width: 300px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
@@ -265,4 +266,30 @@ p {
   padding: 2rem 0.5rem;
   background-color: gray;
   margin: 0; /* Ensure there's no margin */
+}
+
+.contact {
+  background-color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #333;
+}
+
+.contact-info {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-info p {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.contact-info a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
 }
