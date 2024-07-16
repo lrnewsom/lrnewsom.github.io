@@ -149,9 +149,9 @@ a {
 
 #about-img-container {
   flex: 1;
-  min-width: 300px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
+  min-width: 300px;
   justify-content: center;
   align-items: center;
   padding: 2rem;
