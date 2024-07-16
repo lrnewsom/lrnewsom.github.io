@@ -1,146 +1,126 @@
-// I referenced the example js heavily on this first project, but I have come back and added my own personal flair after finishing the other projects and having a better understanding of d3 and js.
-
-var width = 800,
-  height = 400,
-  barWidth = width / 275;
 var body = d3.select("body");
+var svg = d3.select("svg");
 var tooltip = body
   .append("div")
   .attr("class", "tooltip")
   .attr("id", "tooltip")
   .style("opacity", 0);
 
-var svgContainer = d3
-  .select(".visHolder")
-  .append("svg")
-  .attr("width", width + 100)
-  .attr("height", height + 60);
+const urlEd =
+  "https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/for_user_education.json";
+const urlCo =
+  "https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/counties.json";
 
-d3.json(
-  "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json"
-)
-  .then((data) => {
-    svgContainer
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("x", 0 - height / 1.5)
-      .attr("y", 80)
-      .text("Gross Domestic Product");
-    svgContainer
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("x", 0 - height / 1.65)
-      .attr("y", 100)
-      .text("In Billions USD");
+Promise.all([d3.json(urlEd), d3.json(urlCo)])
+  .then(([edData, coData]) => {
+    const minEd = d3.min(edData, (d) => d.bachelorsOrHigher);
+    const maxEd = d3.max(edData, (d) => d.bachelorsOrHigher);
+    var path = d3.geoPath();
 
-    var years = data.data.map(function (item) {
-      var quarter;
-      var temp = item[0].substring(5, 7);
+    var xScale = d3.scaleLinear().domain([minEd, maxEd]).rangeRound([600, 860]);
 
-      if (temp === "01") {
-        quarter = "Q1";
-      } else if (temp === "04") {
-        quarter = "Q2";
-      } else if (temp === "07") {
-        quarter = "Q3";
-      } else if (temp === "10") {
-        quarter = "Q4";
-      }
+    var color = d3
+      .scaleThreshold()
+      .domain(d3.range(minEd, maxEd, (maxEd - minEd) / 8))
+      .range(d3.schemePurples[9]);
 
-      return item[0].substring(0, 4) + " " + quarter;
-    });
-
-    var yearsDate = data.data.map(function (item) {
-      return new Date(item[0]);
-    });
-
-    var xMax = new Date(d3.max(yearsDate));
-    xMax.setMonth(xMax.getMonth() + 3);
-    var xScale = d3
-      .scaleTime()
-      .domain([d3.min(yearsDate), xMax])
-      .range([0, width]);
-
-    var xAxis = d3.axisBottom().scale(xScale);
-
-    svgContainer
+    var legend = svg
       .append("g")
-      .call(xAxis)
-      .attr("id", "x-axis")
-      .attr("transform", "translate(60, 400)");
-
-    var GDP = data.data.map(function (item) {
-      return item[1];
-    });
-
-    var scaledGDP = [];
-
-    var gdpMax = d3.max(GDP);
-
-    const colorScale = d3
-      .scaleLinear()
-      .domain([0, gdpMax])
-      .range(["#006400", "#7FFF00"]);
-
-    var linearScale = d3.scaleLinear().domain([0, gdpMax]).range([0, height]);
-
-    scaledGDP = GDP.map(function (item) {
-      return linearScale(item);
-    });
-
-    var yAxisScale = d3.scaleLinear().domain([0, gdpMax]).range([height, 0]);
-
-    var yAxis = d3.axisLeft(yAxisScale);
-
-    svgContainer
-      .append("g")
-      .call(yAxis)
-      .attr("id", "y-axis")
-      .attr("transform", "translate(60, 0)");
-
-    d3.select("svg")
+      .attr("class", "legend")
+      .attr("id", "legend")
+      .attr("transform", "translate(0, 50)");
+    // I used the example's js code for help with the following block.
+    legend
       .selectAll("rect")
-      .data(scaledGDP)
+      .data(
+        color.range().map(function (d) {
+          d = color.invertExtent(d);
+          if (d[0] === null) d[0] = xScale.domain()[0];
+          if (d[1] === null) d[1] = xScale.domain()[1];
+          return d;
+        })
+      )
       .enter()
       .append("rect")
-      .attr("data-date", function (d, i) {
-        return data.data[i][0];
-      })
-      .attr("data-gdp", function (d, i) {
-        return data.data[i][1];
-      })
-      .attr("class", "bar")
-      .attr("x", function (d, i) {
-        return xScale(yearsDate[i]);
-      })
-      .attr("y", function (d) {
-        return height - d;
-      })
-      .attr("width", barWidth)
-      .attr("height", function (d) {
-        return d;
-      })
-      .attr("index", (d, i) => i)
-      .style("fill", (d, i) => colorScale(data.data[i][1]))
-      .attr("transform", "translate(60, 0)")
-      .on("mouseover", function (event, d) {
-        var i = this.getAttribute("index");
+      .attr("height", 8)
+      .attr("x", (d) => xScale(d[0]))
+      .attr("width", (d) =>
+        d[0] && d[1] ? xScale(d[1]) - xScale(d[0]) : xScale(null)
+      )
+      .attr("fill", (d) => color(d[0]));
 
+    legend
+      .append("text")
+      .attr("class", "caption")
+      .attr("x", xScale.range()[0])
+      .attr("y", -6)
+      .attr("fill", "#000")
+      .attr("text-anchor", "start")
+      .attr("font-weight", "bold");
+
+    legend
+      .call(
+        d3
+          .axisBottom(xScale)
+          .tickSize(13)
+          .tickFormat((x) => Math.round(x) + "%")
+          .tickValues(color.domain())
+      )
+      .select(".domain")
+      .remove();
+
+    svg
+      .append("g")
+      .attr("class", "counties")
+      .selectAll("path")
+      .data(topojson.feature(coData, coData.objects.counties).features)
+      .enter()
+      .append("path")
+      .attr("class", "county")
+      .attr("data-fips", (d) => d.id)
+      .attr("data-education", (d) => {
+        var result = edData.filter((obj) => obj.fips === d.id);
+        if (result[0]) {
+          return result[0].bachelorsOrHigher;
+        }
+        console.log("could not find data for:", d.id);
+        return 0;
+      })
+      .attr("fill", (d) => {
+        var result = edData.filter((obj) => obj.fips === d.id);
+        if (result[0]) {
+          return color(result[0].bachelorsOrHigher);
+        }
+        return color(0);
+      })
+      .attr("d", path)
+      .on("mousemove", function (event, d) {
+        tooltip.style("opacity", 0.9);
         tooltip
-          .style("opacity", 0.9)
+          .html(() => {
+            var result = edData.filter((obj) => obj.fips === d.id);
+            if (result[0]) {
+              return `${result[0].area_name}, ${result[0].state}: ${result[0].bachelorsOrHigher}%`;
+            }
+            return 0;
+          })
+          .attr("data-education", () => {
+            var result = edData.filter((obj) => obj.fips === d.id);
+            if (result[0]) {
+              return result[0].bachelorsOrHigher;
+            }
+            return 0;
+          })
           .style("left", event.pageX + 10 + "px")
-          .style("top", event.pageY - 20 + "px")
-          .html(
-            years[i] +
-              "<br>" +
-              "$" +
-              GDP[i].toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, "$1,") +
-              " Billion"
-          )
-          .attr("data-date", data.data[i][0]);
+          .style("top", event.pageY - 20 + "px");
       })
       .on("mouseout", function () {
         tooltip.style("opacity", 0);
       });
+
+    //svg.append('path')
+    //.datum(topojson.mesh(coData, coData.objects.states, (a, b) => a !== b))
+    //.attr('class', 'states')
+    //.attr('d', path);
   })
-  .catch((e) => console.log(e));
+  .catch((err) => console.log(err));

@@ -1,23 +1,16 @@
-<html>
-  <head>
-    <link rel="stylesheet" href="choropleth.css" />
-  </head>
-  <body>
-    <div class="main">
-      <div class="container">
-        <div id="title">United States GDP</div>
-        <div id="subtitle">Billions USD over Year</div>
-        <div class="visHolder"></div>
-        <div class="source">
-          See source data
-          <a
-            href="https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json"
-            >here</a
-          >.
-        </div>
-      </div>
-    </div>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="choropleth.js"></script>
-  </body>
-</html>
+<head>
+  <!-- I used the example's html to see how I should organize this. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3.0.0/dist/d3-scale-chromatic.min.js"></script>
+  <link rel="stylesheet" href="choropleth.css" />
+</head>
+<body>
+  <div id="title">United States Educational Attainment</div>
+  <div id="description">
+    Percentage of adults age 25 or older with a bachelor's degree or higher
+    (2010-2014)
+  </div>
+  <svg width="960" height="600"></svg>
+  <script src="choropleth.js"></script>
+</body>
