@@ -1,0 +1,35 @@
+.tooltip {
+  position: absolute;
+  padding: 10px;
+  font: 12px Arial;
+  background: lightyellow;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+  border: 0px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+#title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#subtitle {
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: medium;
+}
+
+.source {
+  text-align: center;
+  font-size: 1rem;
+  padding: 0;
+  font-weight: medium;
+}

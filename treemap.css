@@ -1,0 +1,58 @@
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: vertical;
+  justify-content: center;
+}
+
+#title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  padding: 0;
+}
+
+#description {
+  text-align: center;
+  font-weight: medium;
+  font-size: 1.2rem;
+  padding: 15px 0;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 10px;
+  font: 12px Arial;
+  background: lightyellow;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+  border: 0px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.tile {
+  stroke: #fff;
+}
+
+.legend {
+  font-family: sans-serif;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.legend-item1 {
+  display: flex;
+  align-itmes: center;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+.legend-item {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-left: 10px;
+}
