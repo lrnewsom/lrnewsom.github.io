@@ -1,190 +1,227 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    padding: 20px 200px;
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 20px 200px;
 }
 
 img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    width: 300px;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  width: 300px;
 }
 
 #title {
-    margin: 0;
+  margin: 0;
 }
 
 #subtitle {
-    text-align: center;
-    color: #333;
-    font-size: large;
-    font-weight: bold;
-    margin: 5;
+  text-align: center;
+  color: #333;
+  font-size: large;
+  font-weight: bold;
+  margin: 5;
 }
 
 #img-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #img-caption {
-    margin-top: 5px;
-    margin-bottom: 20px;
-    font-style: italic;
-    text-align: center;
-    color: #777;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-style: italic;
+  text-align: center;
+  color: #777;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-#title, #subtitle {
-    background-color: #f9f9f9;
-    margin: 5px 30px ;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+#title,
+#subtitle {
+  background-color: #f9f9f9;
+  margin: 5px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
 }
 
 body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-attachment: fixed;
-    background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmaps-india-in.com%2Fimg%2F0%2Fancient-map-of-india.jpg&f=1&nofb=1&ipt=cdb8016eae71493d8608f38b67d3f1db945b0fb885bd0df5323284223b686076&ipo=images://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F1.bp.blogspot.com%2F-F2aqoc7ZKBU%2FTpWAuM31QkI%2FAAAAAAAAAU8%2F_aUHUKhDBuM%2Fs1600%2Fpolitical%2Bdivisions%2Bof%2BBritish%2BIndian%2BEmpire%2B1909%2BImperial%2BGazetteer%2Bof%2BIndia.jpg&f=1&nofb=1&ipt=afe076cbc32e96fe501ad12d1a3eda0567f638278b84b5c7bc31362670f5d873&ipo=images://cdn.swisscows.com/image?url=https%3A%2F%2Fmedia.istockphoto.com%2Fid%2F1021468486%2Fphoto%2Fold-map-india.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3D7XGzIhlmZov195eEiiuBJkXYbLvw4-qxAsVUPqGNzYY%3D'); /* Replace with your image path */
-    background-size: cover;
-    background-position: center;
-    opacity: 0.3; /* Adjust the opacity as needed */
-    z-index: -1;
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-attachment: fixed;
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmaps-india-in.com%2Fimg%2F0%2Fancient-map-of-india.jpg&f=1&nofb=1&ipt=cdb8016eae71493d8608f38b67d3f1db945b0fb885bd0df5323284223b686076&ipo=images://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F1.bp.blogspot.com%2F-F2aqoc7ZKBU%2FTpWAuM31QkI%2FAAAAAAAAAU8%2F_aUHUKhDBuM%2Fs1600%2Fpolitical%2Bdivisions%2Bof%2BBritish%2BIndian%2BEmpire%2B1909%2BImperial%2BGazetteer%2Bof%2BIndia.jpg&f=1&nofb=1&ipt=afe076cbc32e96fe501ad12d1a3eda0567f638278b84b5c7bc31362670f5d873&ipo=images://cdn.swisscows.com/image?url=https%3A%2F%2Fmedia.istockphoto.com%2Fid%2F1021468486%2Fphoto%2Fold-map-india.jpg%3Fs%3D612x612%26w%3D0%26k%3D20%26c%3D7XGzIhlmZov195eEiiuBJkXYbLvw4-qxAsVUPqGNzYY%3D");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  z-index: -1;
 }
 
 body::after {
-    content: '';
-    display: block;
-    height: 50px;
+  content: "";
+  display: block;
+  height: 50px;
 }
 
-.timeline {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.fact-container {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
+.timeline,
+.fact-container,
 .quote-section {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .fact-container > h1 {
-    margin: 0;
-    border-bottom: 3px solid black;
+  margin: 0;
+  border-bottom: 3px solid black;
 }
 
-.timeline-title {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    font-weight: bolder;
-    font-size: 2rem;
-    text-align: center;
+.timeline-title,
+.quote-section > h2 {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-weight: bolder;
+  font-size: 2rem;
+  text-align: center;
 }
 
 .event {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
 }
 
 .event:first-of-type {
-    border-top: 3px solid black;
+  border-top: 3px solid black;
 }
 
 .event:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .date {
-    font-weight: bold;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 .description {
-    margin-top: 5px;
-    color: #555;
+  margin-top: 5px;
+  color: #555;
 }
 
-h1, h2 {
-    text-align: center;
-    color: #333;
+h1,
+h2 {
+  text-align: center;
+  color: #333;
 }
 
 .facts {
-    list-style-type: disc;
-    padding-left: 20px;
+  list-style-type: disc;
+  padding-left: 20px;
 }
 
 .facts li {
-    margin: 10px 0;
-    color: #555;
+  margin: 10px 0;
+  color: #555;
 }
 
 .quote-section {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.quote-section > h2 {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    font-weight: bolder;
-    font-size: 2rem;
-    text-align: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .quote {
-    font-style: italic;
-    color: #333;
-    font-size: 1.2em;
+  font-style: italic;
+  color: #333;
+  font-size: 1.2em;
 }
 
 #acontainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 a {
-    padding: 5px;
+  padding: 5px;
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+  body,
+  html {
+    padding: 20px;
+  }
+
+  #title,
+  #subtitle {
+    margin: 5px 15px;
+  }
+
+  .timeline,
+  .fact-container,
+  .quote-section {
+    max-width: 100%;
+    margin: 0 auto 20px;
+    padding: 10px;
+  }
+
+  .timeline-title,
+  .quote-section > h2 {
+    font-size: 1.5rem;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body,
+  html {
+    padding: 10px;
+  }
+
+  #title,
+  #subtitle {
+    margin: 5px 10px;
+  }
+
+  .timeline,
+  .fact-container,
+  .quote-section {
+    max-width: 100%;
+    margin: 0 auto 15px;
+    padding: 10px;
+  }
+
+  .timeline-title,
+  .quote-section > h2 {
+    font-size: 1.2rem;
+  }
+
+  img {
+    width: 100%;
+  }
 }
