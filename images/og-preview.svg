@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="5"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <pattern id="weave" width="10" height="10" patternUnits="userSpaceOnUse">
+      <line x1="10" y1="0" x2="0" y2="10" stroke="#b8a89a" stroke-width="0.4" opacity="0.15"/>
+      <line x1="0" y1="0" x2="10" y2="10" stroke="#b8a89a" stroke-width="0.3" opacity="0.1"/>
+    </pattern>
+  </defs>
+  <!-- Warm cream background -->
+  <rect width="1200" height="630" fill="#f2ede6"/>
+  <rect width="1200" height="630" fill="url(#weave)" filter="url(#grain)"/>
+  <!-- Accent bar left -->
+  <rect x="80" y="200" width="3" height="200" rx="1.5" fill="#8b5135"/>
+  <!-- Name -->
+  <text x="110" y="280" font-family="Georgia, 'Times New Roman', serif" font-size="64" font-weight="600" fill="#2a241e" letter-spacing="-0.01em">Logan Newsom</text>
+  <!-- Accent rule -->
+  <rect x="110" y="298" width="48" height="2" rx="1" fill="#8b5135"/>
+  <!-- Subtitle -->
+  <text x="110" y="340" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="400" fill="#6b5d50" letter-spacing="0.005em">Software Developer</text>
+  <!-- Detail line -->
+  <text x="110" y="372" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" fill="#8f8173" letter-spacing="0.08em" text-transform="uppercase">Assistant Software Developer · Burns &amp; McDonnell A&amp;F</text>
+  <!-- Faith quote hint -->
+  <text x="110" y="430" font-family="Georgia, 'Times New Roman', serif" font-size="15" font-style="italic" fill="#9a8b7d" letter-spacing="0.01em">"the most important thing in my life is Jesus Christ"</text>
+  <!-- Subtle bottom-right decorative -->
+  <rect x="1120" y="580" width="20" height="20" rx="2" fill="#8b5135" opacity="0.15"/>
+  <!-- Logo mark bottom-right -->
+  <text x="1100" y="594" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" fill="#c4b6a8" letter-spacing="0.12em" text-anchor="end" text-transform="uppercase">lrnewsom.github.io</text>
+</svg>
