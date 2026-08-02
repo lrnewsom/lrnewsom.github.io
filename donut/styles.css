@@ -7,10 +7,11 @@
 
   --accent-main-rgb: 255 0 0;
   --accent-light-rgb: 255 128 0;
-  --accent-secondary-rgb: 255 255 0;
+  --accent-secondary-rgb: 255 135 0;
 
   --card-size: 90vmin;
   --font-size: 0.8rem;
+  --gradient-stop: 35%;
 }
 
 body {
@@ -48,8 +49,8 @@ body {
   justify-content: center;
   aspect-ratio: 1;
   position: relative;
-  margin: 1rem;
-  border-radius: 2rem;
+  margin: 0;
+  border-radius: 0rem;
   overflow: hidden;
   cursor: pointer;
 }
@@ -67,8 +68,9 @@ body {
   width: 100%;
   position: absolute;
   background: radial-gradient(
-    rgb(var(--background-light-rgb)) 40%,
-    rgb(var(--accent-main-rgb)) 60%,
+    circle farthest-side,
+    rgb(var(--background-light-rgb)) var(--gradient-stop),
+    rgb(var(--accent-main-rgb)) 50%,
     rgb(var(--accent-light-rgb)),
     rgb(var(--accent-secondary-rgb))
   );
@@ -93,8 +95,8 @@ body {
   transition: opacity 400ms;
   mask-image: radial-gradient(
     calc(var(--card-size) * 0.8) circle at var(--x) var(--y),
-    rgb(255 255 255) 20%,
-    rgb(255 255 255 / 25%),
+    rgb(255 255 255) 5%,
+    rgb(255 255 255 / 10%),
     transparent
   );
   scale: 1.03;
@@ -102,6 +104,14 @@ body {
 
 .card:hover .card-letters {
   opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .controls {
+    left: auto;
+    right: 1rem;
+    translate: 0 -50%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -210,4 +220,49 @@ body {
   z-index: 10;
   pointer-events: none;
   image-rendering: pixelated;
+}
+
+.controls {
+  position: fixed;
+  top: 50%;
+  left: calc(75vw + 22.5vmin);
+  translate: -50% -50%;
+  z-index: 20;
+  width: 340px;
+  padding: 1.25rem;
+  border: var(--border);
+  border-radius: 1rem;
+  background: rgb(var(--background-light-rgb) / 60%);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.controls h1 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.02em;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr 3.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: rgb(255 255 255 / 80%);
+}
+
+.control-row input[type="range"] {
+  width: 100%;
+  accent-color: rgb(var(--accent-main-rgb));
+}
+
+.control-row output {
+  text-align: right;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: rgb(255 255 255 / 70%);
 }

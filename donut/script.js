@@ -1,157 +1,235 @@
 const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-const randomChar = () => chars[Math.floor(Math.random() * (chars.length - 1))],
-  randomString = (length) => Array.from(Array(length)).map(randomChar).join("");
+const randomChar = () => chars[Math.floor(Math.random() * (chars.length - 1))];
+const randomString = (length) =>
+  Array.from(Array(length)).map(randomChar).join("");
 
-function makePoint(phi, theta) {
-  return {
-    c: sin(phi),
-    d: cos(theta),
-    f: sin(theta),
-    l: cos(phi),
-  };
-}
+// --- Torus geometry ----------------------------------------------------------
 
-function init() {
-  const card = document.querySelector(".card"),
-    letters = card.querySelector(".card-letters"),
-    canvas = document.querySelector(".center-canvas"),
-    ctx = canvas.getContext("2d");
-
-  const pixelSize = 4;
-  canvas.width = Math.ceil(window.innerWidth / pixelSize);
-  canvas.height = Math.ceil(window.innerHeight / pixelSize);
-
-  const w = canvas.width;
-  const h = canvas.height;
-  const cx = w / 2;
-  const cy = h / 2;
-  const radius = Math.min(cx, cy) * 0.8;
-
-  const R = radius * 0.35;
-  const r = radius * 0.15;
-
-  // precompute static torus points (local coords)
-  const localPoints = [];
-  for (let theta = 0; theta < Math.PI * 2; theta += 0.025) {
-    for (let phi = 0; phi < Math.PI * 2; phi += 0.015) {
+function makeTorusPoints(majorRadius, minorRadius, thetaStep, phiStep) {
+  const points = [];
+  for (let theta = 0; theta < Math.PI * 2; theta += thetaStep) {
+    for (let phi = 0; phi < Math.PI * 2; phi += phiStep) {
       const cosT = Math.cos(theta),
         sinT = Math.sin(theta);
       const cosP = Math.cos(phi),
         sinP = Math.sin(phi);
-      const x = (R + r * cosP) * cosT;
-      const y = (R + r * cosP) * sinT;
-      const z = r * sinP;
-      // normal for lighting
-      const nx = cosP * cosT;
-      const ny = cosP * sinT;
-      const nz = sinP;
-      localPoints.push({ x, y, z, nx, ny, nz });
+      points.push({
+        x: (majorRadius + minorRadius * cosP) * cosT,
+        y: (majorRadius + minorRadius * cosP) * sinT,
+        z: minorRadius * sinP,
+        nx: cosP * cosT,
+        ny: cosP * sinT,
+        nz: sinP,
+      });
     }
   }
+  return points;
+}
 
-  let rotX = 0,
-    rotY = 0,
-    rotZ = 0;
-  const lightDir = { x: 0.5, y: -0.3, z: 1 };
-  const lightLen = Math.hypot(lightDir.x, lightDir.y, lightDir.z);
-  lightDir.x /= lightLen;
-  lightDir.y /= lightLen;
-  lightDir.z /= lightLen;
+// --- 3D rotation -------------------------------------------------------------
 
-  function rotate(point, rx, ry, rz) {
-    let { x, y, z, nx, ny, nz } = point;
-    // rotate X
-    let cy = Math.cos(rx),
-      sy = Math.sin(rx);
-    let y2 = y * cy - z * sy;
-    let z2 = y * sy + z * cy;
-    let ny2 = ny * cy - nz * sy;
-    let nz2 = ny * sy + nz * cy;
-    z = z2;
-    y = y2;
-    nz = nz2;
-    ny = ny2;
-    // rotate Y
-    let cx = Math.cos(ry),
-      sx = Math.sin(ry);
-    let x3 = x * cx + z * sx;
-    let z3 = -x * sx + z * cx;
-    let nx3 = nx * cx + nz * sx;
-    let nz3 = -nx * sx + nz * cx;
-    x = x3;
-    z = z3;
-    nx = nx3;
-    nz = nz3;
-    // rotate Z
-    let cz = Math.cos(rz),
-      sz = Math.sin(rz);
-    let x4 = x * cz - y * sz;
-    let y4 = x * sz + y * cz;
-    let nx4 = nx * cz - ny * sz;
-    let ny4 = nx * sz + ny * cz;
-    return { x: x4, y: y4, z: z3, nx: nx4, ny: ny4, nz: nz3 };
+function rotatePoint(p, rx, ry, rz) {
+  const cx = Math.cos(rx),
+    sx = Math.sin(rx);
+  const cy = Math.cos(ry),
+    sy = Math.sin(ry);
+  const cz = Math.cos(rz),
+    sz = Math.sin(rz);
+
+  let { x, y, z, nx, ny, nz } = p;
+
+  // about X
+  const y1 = y * cx - z * sx;
+  const z1 = y * sx + z * cx;
+  const ny1 = ny * cx - nz * sx;
+  const nz1 = ny * sx + nz * cx;
+
+  // about Y
+  const x2 = x * cy + z1 * sy;
+  const z2 = -x * sy + z1 * cy;
+  const nx2 = nx * cy + nz1 * sy;
+  const nz2 = -nx * sy + nz1 * cy;
+
+  // about Z
+  const x3 = x2 * cz - y1 * sz;
+  const y3 = x2 * sz + y1 * cz;
+  const nx3 = nx2 * cz - ny1 * sz;
+  const ny3 = nx2 * sz + ny1 * cz;
+
+  return { x: x3, y: y3, z: z2, nx: nx3, ny: ny3, nz: nz2 };
+}
+
+// --- Lighting ----------------------------------------------------------------
+
+function normalize(v) {
+  const len = Math.hypot(v.x, v.y, v.z);
+  return { x: v.x / len, y: v.y / len, z: v.z / len };
+}
+
+function shade(nx, ny, nz, light) {
+  const diffuse = Math.max(0, nx * light.x + ny * light.y + nz * light.z);
+  return Math.floor(60 + 195 * diffuse);
+}
+
+// --- Canvas rendering --------------------------------------------------------
+
+function clear(data) {
+  for (let i = 0; i < data.length; i += 4) {
+    data[i] = data[i + 1] = data[i + 2] = 0;
+    data[i + 3] = 0;
   }
+}
 
-  function render() {
-    rotX += 0.005;
-    rotY += 0.0;
-    rotZ += 0.005;
+function drawTorus(points, data, w, h, cx, cy, rot, light) {
+  const depthBuf = new Float32Array(w * h).fill(-Infinity);
 
-    const imgData = ctx.createImageData(w, h);
-    const data = imgData.data;
+  for (const p of points) {
+    const rp = rotatePoint(p, rot.x, rot.y, rot.z);
+    const px = Math.round(cx + rp.x);
+    const py = Math.round(cy + rp.y);
 
-    // clear to transparent
-    for (let i = 0; i < data.length; i += 4) {
-      data[i] = data[i + 1] = data[i + 2] = 0;
-      data[i + 3] = 0;
-    }
+    if (px < 0 || px >= w || py < 0 || py >= h) continue;
 
-    // depth buffer for occlusion
-    const depthBuf = new Float32Array(w * h).fill(-Infinity);
+    const idx = py * w + px;
+    if (rp.z <= depthBuf[idx]) continue;
+    depthBuf[idx] = rp.z;
 
-    for (const p of localPoints) {
-      const rp = rotate(p, rotX, rotY, rotZ);
-      const px = Math.round(cx + rp.x);
-      const py = Math.round(cy + rp.y);
-      const pz = rp.z;
-
-      if (px >= 0 && px < w && py >= 0 && py < h) {
-        const idx = py * w + px;
-        if (pz > depthBuf[idx]) {
-          depthBuf[idx] = pz;
-          // lambert shading
-          const diffuse = Math.max(
-            0,
-            rp.nx * lightDir.x + rp.ny * lightDir.y + rp.nz * lightDir.z
-          );
-          const shade = Math.floor(60 + 195 * diffuse);
-          const i = idx * 4;
-          data[i] = data[i + 1] = data[i + 2] = shade;
-          data[i + 3] = 230; // slightly transparent
-        }
-      }
-    }
-
-    ctx.putImageData(imgData, 0, 0);
-    requestAnimationFrame(render);
+    const s = shade(rp.nx, rp.ny, rp.nz, light);
+    const i = idx * 4;
+    data[i] = data[i + 1] = data[i + 2] = s;
+    data[i + 3] = 230; // slightly transparent
   }
+}
 
-  render();
+// --- Text effect -------------------------------------------------------------
 
+function initTextEffect(card, letters) {
   const handleOnMove = (e) => {
-    const rect = card.getBoundingClientRect(),
-      x = e.clientX - rect.left,
-      y = e.clientY - rect.top;
-
-    letters.style.setProperty("--x", `${x}px`);
-    letters.style.setProperty("--y", `${y}px`);
-
+    const rect = card.getBoundingClientRect();
+    letters.style.setProperty("--x", `${e.clientX - rect.left}px`);
+    letters.style.setProperty("--y", `${e.clientY - rect.top}px`);
     letters.innerText = randomString(6000);
   };
 
-  card.onmousemove = (e) => handleOnMove(e);
+  card.onmousemove = handleOnMove;
   card.ontouchmove = (e) => handleOnMove(e.touches[0]);
+}
+
+// --- Controls ----------------------------------------------------------------
+
+const settings = {
+  rotX: 0.5,
+  rotY: 0.01,
+  rotZ: 0.5,
+  fontSize: 13,
+  major: 0.35,
+  minor: 0.15,
+  pixelSize: 5,
+  detail: 1,
+};
+
+function initControls(rebuild, setFontSize, setGradientStop) {
+  const spec = {
+    rotX: { out: (v) => v.toFixed(2) },
+    rotY: { out: (v) => v.toFixed(2) },
+    rotZ: { out: (v) => v.toFixed(2) },
+    fontSize: { out: (v) => `${v}px`, onChange: setFontSize },
+    major: {
+      out: (v) => `${Math.round(v * 100)}%`,
+      onChange: rebuild,
+      pct: true,
+      extra: setGradientStop,
+    },
+    minor: {
+      out: (v) => `${Math.round(v * 100)}%`,
+      onChange: rebuild,
+      pct: true,
+    },
+    pixelSize: { out: (v) => `${v}`, onChange: rebuild },
+    detail: { out: (v) => `${v.toFixed(2)}x`, onChange: rebuild },
+  };
+
+  for (const [key, s] of Object.entries(spec)) {
+    const input = document.getElementById(key);
+    const output = input.nextElementSibling;
+    input.addEventListener("input", () => {
+      settings[key] = s.pct ? input.value / 100 : +input.value;
+      output.textContent = s.out(settings[key]);
+      s.onChange?.(settings[key]);
+      s.extra?.(settings[key]);
+    });
+  }
+}
+
+// --- Boot --------------------------------------------------------------------
+
+function init() {
+  const card = document.querySelector(".card");
+  const letters = card.querySelector(".card-letters");
+  const canvas = document.querySelector(".center-canvas");
+  const ctx = canvas.getContext("2d");
+  const light = normalize({ x: 0.5, y: -0.3, z: 1 });
+  const rot = { x: 0, y: 0, z: 0 };
+
+  let w, h, cx, cy, radius, torus;
+  let lastTime = performance.now();
+
+  function rebuild() {
+    // low-res backing store, stretched full-screen by CSS
+    w = Math.ceil(window.innerWidth / settings.pixelSize);
+    h = Math.ceil(window.innerHeight / settings.pixelSize);
+    canvas.width = w;
+    canvas.height = h;
+
+    cx = w / 2;
+    cy = h / 2;
+    radius = Math.min(cx, cy) * 0.8;
+
+    torus = makeTorusPoints(
+      radius * settings.major,
+      radius * settings.minor,
+      0.025 / settings.detail,
+      0.015 / settings.detail
+    );
+  }
+
+  function setFontSize(v) {
+    document.documentElement.style.setProperty("--font-size", `${v}px`);
+  }
+
+  function setGradientStop(v) {
+    // torus outer edge at (major+minor)*0.4*vmin; gradient radius is 0.45*vmin
+    const stop = (v + settings.minor) * (0.4 / 0.45) * 100;
+    document.documentElement.style.setProperty(
+      "--gradient-stop",
+      `${Math.round(stop)}%`
+    );
+  }
+
+  rebuild();
+  setFontSize(settings.fontSize);
+  setGradientStop(settings.major);
+  initControls(rebuild, setFontSize, setGradientStop);
+
+  function render(now) {
+    const dt = Math.min((now - lastTime) / 1000, 0.1); // cap dt for tab-switch jumps
+    lastTime = now;
+
+    rot.x += settings.rotX * dt;
+    rot.y += settings.rotY * dt;
+    rot.z += settings.rotZ * dt;
+
+    const imgData = ctx.createImageData(w, h);
+    clear(imgData.data);
+    drawTorus(torus, imgData.data, w, h, cx, cy, rot, light);
+    ctx.putImageData(imgData, 0, 0);
+
+    requestAnimationFrame(render);
+  }
+
+  requestAnimationFrame(render);
+  initTextEffect(card, letters);
 }
 
 if (document.readyState === "loading") {
